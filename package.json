@@ -8,6 +8,14 @@
   "dependencies": {
     "react": "15.3.2",
     "react-native": "0.34.0",
-    "react-native-scrollable-tab-view": "^0.6.0"
+    "react-native-scrollable-tab-view": "^0.6.0",
+    "react-native-vector-icons": "^2.1.0",
+    "react-timer-mixin": "^0.13.3"
+  },
+  "devDependencies": {
+    "eslint": "^3.6.0",
+    "eslint-config-standard": "^6.0.1",
+    "eslint-plugin-promise": "^2.0.1",
+    "eslint-plugin-standard": "^2.0.0"
   }
 }

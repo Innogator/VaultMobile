@@ -1,0 +1,22 @@
+{
+  "data": {
+    "firmFiles": [
+      {
+        "name": "name",
+        "size": "size",
+        "author": "author",
+        "createdDate": "createdDate",
+        "url": "url",
+        "icon": "icon"
+      },
+      {
+        "name": "name2",
+        "size": "size2",
+        "author": "author2",
+        "createdDate": "createdDate2",
+        "url": "url",
+        "icon": "icon2"
+      }
+    ]
+  }
+}
