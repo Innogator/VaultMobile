@@ -1,0 +1,3 @@
+rootProject.name = 'VaultMobile'
+
+include ':app'
