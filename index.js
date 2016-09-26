@@ -3,100 +3,68 @@ import {
   StyleSheet,
   View,
   Text,
-  ScrollView,
-  Navigator,
-  TouchableOpacity
 } from 'react-native';
-import SimpleExample from './src/components/SimpleExample';
-import ScrollableTabsExample from './src/components/ScrollableTabsExample';
-import OverlayExample from './src/components/OverlayExample';
-import FacebookExample from './src/components/FacebookExample';
-import DynamicExample from './src/components/DynamicExample';
-import VaultTabs from './src/components/VaultTabs';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 30,
-    alignItems: 'center'
-  },
-  button: {
-    padding: 10
-  },
-  navigator: {
-    flex: 1
-  }
-});
+import Drawer from 'react-native-drawer';
+import ControlPanel from './src/components/ControlPanel';
+import Main from './src/components/Main';
 
 class VaultMobile extends Component {
+  constructor() {
+    super();
 
-  renderScene(route, nav) {
-    switch (route.id) {
-      case 'simple':
-        return <SimpleExample />;
-      case 'scrollable':
-        return <ScrollableTabsExample />;
-      case 'overlay':
-        return <OverlayExample />;
-      case 'facebook':
-        return <FacebookExample />;
-      case 'dynamic':
-        return <DynamicExample />;
-      case 'custom':
-        return <VaultTabs />;
-      default:
-        return (
-          <View style={styles.container}>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => nav.push({ id: 'simple' })}
-            >
-              <Text>Simple example</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => nav.push({ id: 'scrollable' })}
-            >
-              <Text>Scrollable example</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => nav.push({ id: 'overlay' })}
-            >
-              <Text>Overlay example</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => nav.push({ id: 'facebook' })}
-            >
-              <Text>Facebook example</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => nav.push({ id: 'dynamic' })}
-            >
-              <Text>Dynamic example</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => nav.push({ id: 'custom' })}
-            >
-              <Text>Custom example</Text>
-            </TouchableOpacity>
-          </View>
-        );
+    this.state = {
+      drawerOpen: false,
+      drawerDisabled: false,
     }
+  }
+
+  closeDrawer = () => {
+    this._drawer.close()
+  }
+
+  openDrawer = () => {
+    this._drawer.open()
   }
 
   render() {
     return (
-      <Navigator
-          style={styles.navigator}
-          initialRoute={{}}
-          renderScene={this.renderScene}
-      />
-    );
+      <Drawer
+        ref={(ref) => this._drawer = ref}
+        type="overlay"
+        content={
+          <ControlPanel closeDrawer={this.closeDrawer} />
+        }
+        acceptDoubleTap
+        styles={{main: {shadowColor: '#000000', shadowOpacity: 0.3, shadowRadius: 15}}}
+        onOpen={() => {
+          console.log('onopen')
+          this.setState({drawerOpen: true})
+        }}
+        onClose={() => {
+          console.log('onclose')
+          this.setState({drawerOpen: false})
+        }}
+        captureGestures={false}
+        tweenHandler={Drawer.tweenPresets.parallax}
+        tweenDuration={100}
+        panThreshold={0.08}
+        disabled={this.state.drawerDisabled}
+        openDrawerOffset={0.2}
+        closedDrawerOffset={-3}
+        panOpenMask={0.2}
+        negotiatePan
+      >
+        <Main />
+      </Drawer>
+    )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+    flex: 1,
+  }
+})
 
 export default VaultMobile;

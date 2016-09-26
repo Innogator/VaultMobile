@@ -47,7 +47,7 @@ class FileItem extends Component {
   render() {
     return (
       <View style={styles.fileItem}>
-        <Image style={styles.cover} source=/>
+        <Image style={styles.cover} source='' />
         {{/*
         <View style={styles.icon}>
           <Icon
