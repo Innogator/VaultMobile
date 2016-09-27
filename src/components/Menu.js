@@ -7,6 +7,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { GetMenuList } from '../data/dataRequests';
 
 class Menu extends Component {
   constructor() {
@@ -23,6 +24,25 @@ class Menu extends Component {
         { name: 'Notifications', id: 'notifications', icon: 'notifications' },
       ]
     }
+  }
+
+  componentWillMount() {
+    // TODO: of course, remove these hard coded icons
+    const icons = [
+      'location-city',
+      'people',
+      'person'
+    ]
+
+    let data = GetMenuList();
+
+    // temporarily assign ui icon from list above
+    data.forEach((item, index) => (item.icon = index < 3 ? icons[index] : icons[3]))
+
+    this.setState({
+      ...this.state,
+      menuItems: data, 
+    })
   }
 
   createMenu = (item, i) => (

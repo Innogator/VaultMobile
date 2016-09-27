@@ -7,6 +7,8 @@ import {
   ListView
 } from 'react-native';
 import FileItem from './FileItem';
+import ActionMenu from './ActionMenu';
+import { GetFileList } from '../data/dataRequests';
 
 const styles = StyleSheet.create({
   container: {
@@ -49,50 +51,23 @@ class FileList extends Component {
 
     // TODO: set datasource
     let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    let data = {
-
-      'firmFiles': [
-        {
-          'name': 'name',
-          'size': 'size',
-          'author': 'author',
-          'createdDate': 'createdDate',
-          'url': 'url',
-          'icon': 'icon'
-        },
-        {
-          'name': 'name2',
-          'size': 'size2',
-          'author': 'author2',
-          'createdDate': 'createdDate2',
-          'url': 'url2',
-          'icon': 'icon2'
-        },
-        {
-          'name': 'name3',
-          'size': 'size3',
-          'author': 'author3',
-          'createdDate': 'createdDate3',
-          'url': 'url3',
-          'icon': 'icon3'
-        },
-        {
-          'name': 'name4',
-          'size': 'size4',
-          'author': 'author4',
-          'createdDate': 'createdDate4',
-          'url': 'url4',
-          'icon': 'icon4'
-        },
-      ]
-    }
+    let data = [
+        {"id":"f9f0bb50817c11e6ac0f34e6d714f88c","createdTime":"0001-01-01T00:00:00+00:00","modifiedTime":"0001-01-01T00:00:00+00:00","type":"Folder"},
+        {"id":"f9f0bb50817c11e6ac0f34e6d714f88c","createdTime":"0001-01-01T00:00:00+00:00","modifiedTime":"0001-01-01T00:00:00+00:00","type":"Folder"},
+        {"id":"f9f0bb50817c11e6ac0f34e6d714f88c","createdTime":"0001-01-01T00:00:00+00:00","modifiedTime":"0001-01-01T00:00:00+00:00","type":"Folder"},
+        {"id":"f9f0bb50817c11e6ac0f34e6d714f88c","createdTime":"0001-01-01T00:00:00+00:00","modifiedTime":"0001-01-01T00:00:00+00:00","type":"File"},
+    ]
 
     this.state = {
-      dataSource: ds.cloneWithRows(data.firmFiles)
+      dataSource: ds.cloneWithRows(data),
     }
   }
 
-  componentDidMount () {
+  static propTypes = {
+    selectedId: React.PropTypes.string,
+  }
+
+  componentWillMount () {
     this._refreshData();
   }
 
@@ -100,9 +75,9 @@ class FileList extends Component {
     console.log(rowData);
     return (
       <FileItem name={rowData.name}
-              url={rowData.url}
-              author={rowData.author}
-            />
+              updatedDate={rowData.modifiedTime}
+              author={rowData.type}
+      />
     )
   }
 
@@ -125,17 +100,23 @@ class FileList extends Component {
   }
 
   _refreshData () {
-    // TODO: fetch data here
+    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});    
+    let data = GetFileList(this.props.selectedId);
+
+    this.setState = ({
+      dataSource: ds.cloneWithRows(data)
+    })
   }
 
   render () {
     return (
-      <ListView contentContainerStyle={styles.container}
-          dataSource={this.state.dataSource}
-          renderRow={this._renderRow}
-          renderHeader={this._renderHeader}
-          renderFooter={this._renderFooter}
-      />
+      <View>
+        <ListView contentContainerStyle={styles.container}
+            dataSource={this.state.dataSource}
+            renderRow={this._renderRow}
+        />
+        <ActionMenu />
+      </View>
     );
   }
 }

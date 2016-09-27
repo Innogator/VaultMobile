@@ -10,20 +10,29 @@ import HeaderBar from './HeaderBar';
 import FileList from './FileList';
 
 class ControlPanel extends Component {
+  constructor() {
+    super();
 
-  static contextTypes = {
-    drawer: React.PropTypes.object.isRequired,
+    this.state = {
+      // TODO: temporarily select the root folder as default
+      currentFolder: 'fa2734a0817c11e6ac0f34e6d714f88c',
+    }
   }
 
   static propTypes = {
     onMenuPress: React.PropTypes.func.isRequired,
+    onItemPress: React.PropTypes.func.isRequired,
+  }
+
+  fetchFileList(id) {
+
   }
 
   render() {
     return (
       <View>
         <HeaderBar onMenuPress={this.props.onMenuPress} />
-        <FileList />
+        <FileList selectedId={this.state.currentFolder} />
       </View>
     )
   }

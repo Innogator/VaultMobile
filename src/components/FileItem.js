@@ -40,7 +40,7 @@ class FileItem extends Component {
 
   static propTypes = {
     name: React.PropTypes.string,
-    url: React.PropTypes.string,
+    updatedDate: React.PropTypes.string,
     icon: React.PropTypes.string,
   }
 
