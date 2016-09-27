@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
+import HeaderBar from './HeaderBar';
+import FileList from './FileList';
 
 class ControlPanel extends Component {
 
@@ -13,15 +15,16 @@ class ControlPanel extends Component {
     drawer: React.PropTypes.object.isRequired,
   }
 
+  static propTypes = {
+    onMenuPress: React.PropTypes.func.isRequired,
+  }
+
   render() {
     return (
-      <ScrollView style={styles.container}>
-        <Text>MAIN</Text>
-        <Text>Testing</Text>
-        <TouchableOpacity style={styles.button} onPress={this.context.drawer.open}>
-          <Text>Open Drawer</Text>
-        </TouchableOpacity>
-      </ScrollView>
+      <View>
+        <HeaderBar onMenuPress={this.props.onMenuPress} />
+        <FileList />
+      </View>
     )
   }
 }

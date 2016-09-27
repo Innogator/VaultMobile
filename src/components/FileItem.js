@@ -10,29 +10,29 @@ const styles = StyleSheet.create({
  fileItem: {
     flex: 1,
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     backgroundColor: '#FFFFFF',
     borderBottomColor: '#AAAAAA',
     borderBottomWidth: 2,
-    padding: 5
+    padding: 5,
+    height: 65
   },
   cover: {
     flex: 1,
-    height: 150,
     resizeMode: 'contain'
   },
-  info: {
-    flex: 3,
-    alignItems: 'flex-end',
-    flexDirection: 'column',
-    alignSelf: 'center',
-    padding: 20
+  icon: {
+    flex: 1,
   },
   name: {
-    fontSize: 18
-  },
-  url: {
+    flex: 1,
     fontSize: 18,
     fontWeight: 'bold'
+  },
+  url: {
+    flex: 1,
+    fontSize: 18,
   }
 });
 
@@ -47,8 +47,6 @@ class FileItem extends Component {
   render() {
     return (
       <View style={styles.fileItem}>
-        <Image style={styles.cover} source='' />
-        {{/*
         <View style={styles.icon}>
           <Icon
               name="folder"
@@ -56,11 +54,8 @@ class FileItem extends Component {
               color={'rgb(59,89,152)'}
           />
         </View>
-        */}}
-        <View style={styles.info}>
-          <Text style={styles.name}>{this.props.name}</Text>
-          <Text style={styles.url}>{this.props.url}</Text>
-        </View>
+        <Text style={styles.name}>{this.props.name}</Text>
+        <Text style={styles.url}>{this.props.url}</Text>
       </View>
     );
   }

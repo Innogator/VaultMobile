@@ -68,6 +68,22 @@ class FileList extends Component {
           'url': 'url2',
           'icon': 'icon2'
         },
+        {
+          'name': 'name3',
+          'size': 'size3',
+          'author': 'author3',
+          'createdDate': 'createdDate3',
+          'url': 'url3',
+          'icon': 'icon3'
+        },
+        {
+          'name': 'name4',
+          'size': 'size4',
+          'author': 'author4',
+          'createdDate': 'createdDate4',
+          'url': 'url4',
+          'icon': 'icon4'
+        },
       ]
     }
 
@@ -114,7 +130,7 @@ class FileList extends Component {
 
   render () {
     return (
-      <ListView style={styles.container}
+      <ListView contentContainerStyle={styles.container}
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
           renderHeader={this._renderHeader}

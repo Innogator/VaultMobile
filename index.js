@@ -45,16 +45,15 @@ class VaultMobile extends Component {
           this.setState({drawerOpen: false})
         }}
         captureGestures={false}
-        tweenHandler={Drawer.tweenPresets.parallax}
         tweenDuration={100}
         panThreshold={0.08}
         disabled={this.state.drawerDisabled}
         openDrawerOffset={0.2}
-        closedDrawerOffset={-3}
+        closedDrawerOffset={0}
         panOpenMask={0.2}
         negotiatePan
       >
-        <Main />
+        <Main onMenuPress={this.openDrawer} />
       </Drawer>
     )
   }

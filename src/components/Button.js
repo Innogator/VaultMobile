@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import {
+  StyleSheet,
   View,
   Text,
   TouchableHighlight
 } from 'react-native';
-import { styles } from '../styles/styles';
+
+const styles = StyleSheet.create({
+  button: {
+  },
+  buttonText: {
+  }
+});
 
 class Button extends Component {
   render() {
