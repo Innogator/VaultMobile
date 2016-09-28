@@ -11,10 +11,14 @@ const ActionMenu = () => {
       height: 22,
       color: 'white',
     },
+    actionView: {
+      flex: 1,
+      backgroundColor: '#f3f3f3',
+    }
   });
 
   return (
-    <View style={{flex:1, backgroundColor: '#f3f3f3'}}>
+    <View style={styles.actionView}>
       <ActionButton buttonColor="rgba(231,76,60,1)">
         <ActionButton.Item buttonColor='#9b59b6' title="New Folder" onPress={() => {}}>
           <Icon name="md-folder-open" style={styles.actionButtonIcon} />

@@ -7,7 +7,7 @@ import {
 import Drawer from 'react-native-drawer';
 import ControlPanel from './src/components/ControlPanel';
 import Main from './src/components/Main';
-
+import ActionMenu from './src/components/ActionMenu';
 class VaultMobile extends Component {
   constructor() {
     super();
@@ -15,6 +15,8 @@ class VaultMobile extends Component {
     this.state = {
       drawerOpen: false,
       drawerDisabled: false,
+      activeTab: "firm",
+      activeItem: "",
     }
   }
 
@@ -26,24 +28,36 @@ class VaultMobile extends Component {
     this._drawer.open()
   }
 
+  onTabSelected = (id) => {
+    console.log("setting tab to: " + id);
+    this.setState({
+      activeTab: id,
+      activeItem: ""
+    })
+  }
+
+  onItemSelected = (id) => {
+    console.log("Item selected is: " + id);
+    this.setState({
+      activeItem: "",
+    })
+  }
+
   render() {
     return (
       <Drawer
         ref={(ref) => this._drawer = ref}
         type="overlay"
         content={
-          <ControlPanel closeDrawer={this.closeDrawer} />
+          <ControlPanel
+            activeTab={this.state.activeTab}
+            closeDrawer={this.closeDrawer}
+            onTabSelected={this.onTabSelected} />
         }
         acceptDoubleTap
         styles={{main: {shadowColor: '#000000', shadowOpacity: 0.3, shadowRadius: 15}}}
-        onOpen={() => {
-          console.log('onopen')
-          this.setState({drawerOpen: true})
-        }}
-        onClose={() => {
-          console.log('onclose')
-          this.setState({drawerOpen: false})
-        }}
+        onOpen={() => { this.setState({drawerOpen: true})}}
+        onClose={() => { this.setState({drawerOpen: false})}}
         captureGestures={false}
         tweenDuration={100}
         panThreshold={0.08}
@@ -53,7 +67,13 @@ class VaultMobile extends Component {
         panOpenMask={0.2}
         negotiatePan
       >
-        <Main onMenuPress={this.openDrawer} />
+        <Main
+          activeTab={this.state.activeTab}
+          activeItem={this.state.activeItem}
+          onMenuPress={this.openDrawer}
+          onItemSelected={this.onItemSelected} />
+
+        <ActionMenu />
       </Drawer>
     )
   }

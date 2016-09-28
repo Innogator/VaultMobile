@@ -9,30 +9,24 @@ import {
 import HeaderBar from './HeaderBar';
 import FileList from './FileList';
 
-class ControlPanel extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      // TODO: temporarily select the root folder as default
-      currentFolder: 'fa2734a0817c11e6ac0f34e6d714f88c',
-    }
-  }
+class Main extends Component {
 
   static propTypes = {
     onMenuPress: React.PropTypes.func.isRequired,
-    onItemPress: React.PropTypes.func.isRequired,
-  }
-
-  fetchFileList(id) {
-
+    onItemSelected: React.PropTypes.func.isRequired,
+    activeTab: React.PropTypes.string,
+    activeItem: React.PropTypes.string,
   }
 
   render() {
     return (
       <View>
         <HeaderBar onMenuPress={this.props.onMenuPress} />
-        <FileList selectedId={this.state.currentFolder} />
+        <FileList
+          activeTab={this.props.activeTab}
+          activeItem={this.props.activeItem}
+          selectedId={this.props.activeItem}
+          onItemSelected={this.props.onItemSelected} />
       </View>
     )
   }
@@ -52,4 +46,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default ControlPanel;
+export default Main;

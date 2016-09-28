@@ -15,7 +15,6 @@ class Menu extends Component {
 
     // TODO: move this out into a separate file
     this.state = {
-      activeTab: 1,
       menuItems: [
         { name: 'Firm', id: 'firm', icon: 'location-city' },
         { name: 'Team', id: 'firm', icon: 'people' },
@@ -26,6 +25,11 @@ class Menu extends Component {
     }
   }
 
+  static propTypes = {
+    activeTab: React.PropTypes.string,
+    onTabSelected: React.PropTypes.func.isRequired,
+  }
+
   componentWillMount() {
     // TODO: of course, remove these hard coded icons
     const icons = [
@@ -34,31 +38,43 @@ class Menu extends Component {
       'person'
     ]
 
-    let data = GetMenuList();
+    //let data = GetMenuList();
+    let data = [
+        { name: 'Firm', id: 'firm' },
+        { name: 'Team', id: 'team' },
+        { name: 'Client', id: 'client' },
+        { name: 'User', id: 'user' },
+        { name: 'Notifications', id: 'notifications' },
+      ]
 
     // temporarily assign ui icon from list above
-    data.forEach((item, index) => (item.icon = index < 3 ? icons[index] : icons[3]))
+    data.forEach((item, index) => (item.icon = index < 3 ? icons[index] : icons[2]))
 
     this.setState({
       ...this.state,
-      menuItems: data, 
+      menuItems: data,
     })
   }
 
-  createMenu = (item, i) => (
-    <TouchableOpacity key={i} style={styles.item}>
-      <View style={styles.icon}>
-        <Icon
-          name={item.icon}
-          size={30}
-          color={this.state.activeTab === i ? 'rgb(59,89,152)' : 'rgb(204,204,204)'}
-        >
-        </Icon>
-      </View>
+  createMenu = (item, i) => {
+    let selected = this.props.activeTab === item.id;
+    let itemColor = selected ? 'rgb(59,89,152)' : 'rgb(204,204,204)';
+    return (
+      <TouchableOpacity key={i}
+          style={selected ? styles.selectedItem : styles.item}
+          onPress={() => this.props.onTabSelected(item.id)}>
+        <View style={styles.icon}>
+          <Icon
+            name={item.icon}
+            size={30}
+            color={itemColor}
+          />
+        </View>
 
-      <Text key={i}>{item.name}</Text>
-    </TouchableOpacity>
-  )
+        <Text key={i} color={itemColor}>{item.name}</Text>
+      </TouchableOpacity>
+    )
+  }
 
   render () {
     let _scrollView = ScrollView;
@@ -72,7 +88,7 @@ class Menu extends Component {
           automaticallyAdjustContentInsets={false}
           scrollEventThrottle={200}
           style={styles.scrollView}>
-          {this.state.menuItems.map(this.createMenu)}
+            {this.state.menuItems.map(this.createMenu)}
         </ScrollView>
       </View>
     );
@@ -101,6 +117,16 @@ var styles = StyleSheet.create({
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'flex-start'
+  },
+  selectedItem: {
+    flexDirection: 'row',
+    height: 60,
+    borderColor: '#dddddd',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    backgroundColor: '#dddddd',
   },
   icon: {
     width: 40,

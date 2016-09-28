@@ -6,6 +6,38 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+class FileItem extends Component {
+
+  static propTypes = {
+    name: React.PropTypes.string,
+    updatedDate: React.PropTypes.string,
+    icon: React.PropTypes.string,
+  }
+
+  render() {
+    return (
+      <View style={styles.fileItem}>
+        <View style={styles.iconLeft}>
+          <Icon
+              name={this.props.icon}
+              size={50}
+              color={'rgb(59,89,152)'}
+          />
+        </View>
+        <Text style={styles.name}>{this.props.name}</Text>
+        <Text style={styles.url}>{this.props.url}</Text>
+        <View style={styles.iconRight}>
+          <Icon
+              name="chevron-right"
+              size={30}
+              color={'rgb(59,89,152)'}
+        />
+        </View>
+      </View>
+    );
+  }
+}
+
 const styles = StyleSheet.create({
  fileItem: {
     flex: 1,
@@ -22,8 +54,11 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'contain'
   },
-  icon: {
+  iconLeft: {
     flex: 1,
+  },
+  iconRight: {
+    flex: 0.25,
   },
   name: {
     flex: 1,
@@ -33,32 +68,7 @@ const styles = StyleSheet.create({
   url: {
     flex: 1,
     fontSize: 18,
-  }
+  },
 });
-
-class FileItem extends Component {
-
-  static propTypes = {
-    name: React.PropTypes.string,
-    updatedDate: React.PropTypes.string,
-    icon: React.PropTypes.string,
-  }
-
-  render() {
-    return (
-      <View style={styles.fileItem}>
-        <View style={styles.icon}>
-          <Icon
-              name="folder"
-              size={50}
-              color={'rgb(59,89,152)'}
-          />
-        </View>
-        <Text style={styles.name}>{this.props.name}</Text>
-        <Text style={styles.url}>{this.props.url}</Text>
-      </View>
-    );
-  }
-}
 
 export default FileItem;

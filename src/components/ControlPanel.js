@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import Menu from './Menu';
 
-export default class ControlPanel extends Component {
+class ControlPanel extends Component {
 
   static propTypes = {
-    closeDrawer: React.PropTypes.func.isRequired
+    closeDrawer: React.PropTypes.func.isRequired,
+    activeTab: React.PropTypes.string,
+    onTabSelected: React.PropTypes.func.isRequired,
   }
 
   render() {
-    let {closeDrawer} = this.props
+    let { closeDrawer, onTabSelected, activeTab } = this.props
     return (
-      <Menu />
+      <Menu activeTab={activeTab} onTabSelected={onTabSelected} />
     )
   }
 }
+
+export default ControlPanel;
